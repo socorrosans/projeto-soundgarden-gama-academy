@@ -1,48 +1,76 @@
-function recebeDadosDoEvento(evento){
+const nomeEvento = document.querySelectorAll('.nome-evento')
+const nomeAtracoes = document.querySelectorAll('.nome-atracoes')
+const nomeDescricao = document.querySelectorAll('.nome-descricao')
+const linksReservarIngresso = document.querySelectorAll('article .btn')
+const listaNomeEvento = Array.from(nomeEvento)
+const listaNomeAtracoes = Array.from(nomeAtracoes)
+const listaNomeDescricao = Array.from(nomeDescricao)
+const listaLinksReservar = Array.from(linksReservarIngresso)
+const idEvento = document.querySelector('#id-evento')
+
+fetch('https://xp41-soundgarden-api.herokuapp.com/events')
+.then(resposta => resposta.json())
+.then(array => {
+  listaNomeEvento.reduce((acumulador, nomeEvento) => {
+    nomeEvento.innerHTML = `${array[acumulador].name} ${array[acumulador].scheduled.slice(0, 10)}`
+    return acumulador + 1
+  }, 0)
+
+  listaNomeAtracoes.reduce((acumulador, nomeAtracao) => {
+    nomeAtracao.innerHTML = array[acumulador].attractions
+    return acumulador + 1
+  }, 0)
+
+  listaNomeDescricao.reduce((acumulador, nomeDescricao) => {
+    nomeDescricao.innerHTML = array[acumulador].description
+    return acumulador + 1
+  }, 0)
+
+  listaLinksReservar.reduce((acumulador, linkReservar) => {
+    function addClassFormModal(){
+      const formModal = document.querySelector('.form-modal')
+      const imgFechar = document.querySelector('.form-modal a img')
+      formModal.classList.add('ativo')
+  
+      function removeClass(){
+        formModal.classList.remove('ativo')
+        document.querySelector('.pop-up').classList.remove('ativo')
+          inNome.innerHTML = ""
+          inEmail.innerHTML = ""
+          inLotacao.innerHTML = ""  
+      }
+      imgFechar.addEventListener('click', removeClass)
+      idEvento.setAttribute('value', array[acumulador]._id)
+    }
+
+    linkReservar.addEventListener('click', addClassFormModal)
+    return acumulador + 1
+  }, 0)
+})
+
+const submitForm = document.querySelector('.form-modal')
+function reservaIngresso(evento){
   evento.preventDefault()
-  const inNome = document.querySelector('#nome')
-  const inPoster = document.querySelector('#banner')
-  const inAtracoes = document.querySelector('#atracoes')
-  const inDescricao = document.querySelector('#descricao')
-  const inData = document.querySelector('#data')
-  const inLotacao = document.querySelector('#lotacao')
-  const fullDateTime = new Date(inData.value)
+  const inNome = document.querySelector('#nome').value
+  const inEmail = document.querySelector('#email').value
+  const inLotacao = document.querySelector('#lotacao').value
 
-  const dadosCadastro = {
-    "name": inNome.value,
-    "poster": inPoster.value,
-    "attractions": [
-         inAtracoes.value
-      ],
-    "description": inDescricao.value,
-    "scheduled": fullDateTime.toISOString(),
-    "number_tickets": inLotacao.value,
-    } 
+  const URL_RESERVA = 'https://xp41-soundgarden-api.herokuapp.com/bookings'
+  const dadosDaReserva = {
+  "owner_name": inNome,
+  "owner_email": inEmail,
+  "number_tickets": +inLotacao,
+  "event_id": idEvento.value
+  }
 
-  const JSONdadosCadastro = JSON.stringify(dadosCadastro)
-  const URL_SOUND = 'https://xp41-soundgarden-api.herokuapp.com/events'
-
-  fetch(URL_SOUND, {
+  fetch(URL_RESERVA, {
     method: "POST",
-    headers: { "Content-Type": "application/json;"},
-    body: JSONdadosCadastro,
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(dadosDaReserva)
+  }).then((resposta) => {
+    setTimeout(function(){
+      document.querySelector('.pop-up').classList.add('ativo')
+    }, 1000)
   })
-  .then(resposta => resposta.json().then(obj => console.log(obj)))
-  .catch(erro => console.log(erro))
 }
-
-const form = document.querySelector('#form')
-form.addEventListener('submit', recebeDadosDoEvento)
-
-
-
-
-
-
-// if(!inNome.value && !inAtracoes.value && !inDescricao.value && !inData.value && !inLotacao.value){
-//   const h2 = document.querySelector('h2')
-//   h2.classList.add('ativo')
-//   setTimeout(function(){
-//     h2.classList.remove('ativo')
-//   }, 5000)
-// }
+submitForm.addEventListener('submit',reservaIngresso)

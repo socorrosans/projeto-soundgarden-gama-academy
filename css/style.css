@@ -1,78 +1,143 @@
 @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
-body{
-    font-family: 'Questrial', sans-serif;
+
+body {
+  font-family: 'Questrial', sans-serif;
 }
 
 .img-responsive {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 header {
-    position: relative;
-    box-shadow: 0px 5px 4px 0px rgb(63 63 63 / 27%);
-    width: 100%;
-    background-color: #fff;
+  position: relative;
+  box-shadow: 0px 5px 4px 0px rgb(63 63 63 / 27%);
+  width: 100%;
+  background-color: #fff;
 }
 
 aside {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    background-color: #C2185B;
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  background-color: #C2185B;
 }
 
-.btn-primary{
-    background-color: #C2185B;
-    border-color: #C2185B;
+.btn-primary {
+  background-color: #C2185B;
+  border-color: #C2185B;
 }
 
 main.login {
-    width: 400px;
+  width: 400px;
 }
 
-section.full{
-    width: 100%;
-    min-height: 80vh;
-    padding: 50px 0;
+section.full {
+  width: 100%;
+  min-height: 80vh;
+  padding: 50px 0;
 }
 
 article.evento {
-    width: 350px;
+  width: 350px;
 }
 
-footer nav ul{
-    list-style: none;
-    display: flex;
+footer nav ul {
+  list-style: none;
+  display: flex;
 }
 
-footer nav ul li  {
-    padding: 10px;
+footer nav ul li {
+  padding: 10px;
 }
 
 /* h2 da página de cadastro*/
 
 .h2 {
-    display: none;
+  display: none;
 }
 
-.ativo {
-    display: block;
-    font-size: 14px; 
-    color: #C2185B;
+.h2.ativo {
+  display: block;
+  font-size: 20px;
+  color: #C2185B;
+  margin-top: 10px;
 }
 
-.footer a{
-    text-decoration: none; 
-    color: #000000;
-    font-weight: bold;
+.footer a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
 }
 
 .footer a:hover {
-    color: #C2185B;
+  color: #C2185B;
 }
 
 /* div pagina index.html */
-.article {
-    display: none;
+
+.article-index {
+  height: 300px;
+  overflow-x: auto;
+}
+
+.article-index::-webkit-scrollbar {
+  width: 5px;
+}
+
+.article-index::-webkit-scrollbar-thumb {
+  background: #f2f2f2;
+}
+
+.form-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.4);
+  overflow: hidden;
+  padding: 200px 300px;
+}
+
+.form-modal a img {
+  display: block;
+  width: 30px;
+  margin-bottom: 10px;
+  text-align: right;
+  cursor: pointer;
+}
+
+.form-modal button {
+  margin-top: 10px;
+}
+
+.form-modal.ativo {
+  display: block;
+}
+
+.pop-up {
+  display: none;
+  position: fixed;
+  width: 150px;
+  height: 75px;
+  z-index: 2;
+  left: 45%;
+  top: 10%;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.pop-up.ativo {
+  display: block;
+}
+
+#h4 {
+  color: #C2185B;
 }
