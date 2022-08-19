@@ -29,6 +29,11 @@ aside {
   border-color: #C2185B;
 }
 
+.btn-primary:hover {
+  background-color: #555;
+  border-color: #555;
+}
+
 main.login {
   width: 400px;
 }
@@ -65,14 +70,18 @@ footer nav ul li {
   margin-top: 10px;
 }
 
-.footer a {
-  text-decoration: none;
+.footer li a {
+  background-color: #555;
   color: #000000;
   font-weight: bold;
+  padding: 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  letter-spacing: 1px;
 }
 
-.footer a:hover {
-  color: #C2185B;
+.footer li a:hover {
+  color: #FFFFFF;
 }
 
 /* div pagina index.html */
